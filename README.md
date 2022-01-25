@@ -1,1 +1,3 @@
-# connect4-backEnd
+# Neljä suora
+
+Neljän suora pelin node.js:llä toteutettu backend toiminnallisuus.

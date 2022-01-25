@@ -1,0 +1,7 @@
+POST http://localhost:3001/api/c4/move
+Content-Type: application/json
+
+{
+    "firstMove": 0,
+    "moves": [38]
+}
