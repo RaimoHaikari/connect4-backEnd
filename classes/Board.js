@@ -1,5 +1,13 @@
 const Settings = require('./Settings')
 
+/*
+ * @todo: Löytyy sekä isWinningMove että winningMove. 
+ * - toiselle välitetään parametrinä viimeksi tehty siirto ja voittoriviä etsitään
+ *   tähän kohtaan osuvista linjoista
+ * - toinen tutkii koko pöydän.
+ * - Voiko nämä esim. yhdistää?
+ */
+
 class Board {
 
     #rows;
@@ -10,16 +18,21 @@ class Board {
 
         console.log("............. setting board ..................")
         
-        //this.#board[5][0] = Settings.AI_PIECE
-        //this.#board[5][1] = Settings.AI_PIECE
-        //this.#board[4][2] = Settings.AI_PIECE
-        //this.#board[5][5] = Settings.AI_PIECE
-        //this.#board[5][4] = Settings.AI_PIECE 
-        //this.#board[4][3] = Settings.AI_PIECE 
+        this.#board[5][1] = Settings.AI_PIECE
+        this.#board[4][2] = Settings.AI_PIECE
+        this.#board[3][3] = Settings.AI_PIECE
+        this.#board[5][4] = Settings.AI_PIECE
+        this.#board[3][4] = Settings.AI_PIECE
+        //this.#board[2][3] = Settings.AI_PIECE
+        //this.#board[2][4] = Settings.AI_PIECE
 
-        //this.#board[5][2] = Settings.PLAYER_PIECE
-        //this.#board[5][3] = Settings.PLAYER_PIECE
-        //this.#board[4][3] = Settings.PLAYER_PIECE
+
+        this.#board[5][2] = Settings.PLAYER_PIECE
+        this.#board[5][3] = Settings.PLAYER_PIECE
+        this.#board[4][3] = Settings.PLAYER_PIECE
+        this.#board[4][4] = Settings.PLAYER_PIECE
+        this.#board[5][6] = Settings.PLAYER_PIECE
+        //this.#board[2][4] = Settings.PLAYER_PIECE
         //this.#board[5][2] = Settings.PLAYER_PIECE
         //this.#board[4][2] = Settings.PLAYER_PIECE
         //this.#board[5][6] = Settings.PLAYER_PIECE
@@ -38,7 +51,14 @@ class Board {
             .fill(0)
             .map(x => Array(cols).fill(Settings.FREE))
 
-        this.debug()
+        //this.debug()
+    }
+
+    /*
+     * Keskimmäisen sarakkeen indeksinumero
+     */
+    get center() {
+        return Math.floor(this.#cols/2)
     }
 
     /*
@@ -245,18 +265,6 @@ class Board {
     }
 
     /*
-     * Muunnetaan solua vastaava indeksi rivi ja sarake muotoon
-     */
-    indexToRC(ind){
-
-        return {
-            r: Math.floor(ind/this.#cols),
-            c: ind%this.#cols
-        }
-
-    }
-
-    /*
      * Etsitään sarakkeen ensimmäinen vapaa rivi
      * - sarakkeita täytetään alhaalta alkaen, ts. ensimmäinen rivi 
      *   on sama kuin taulukon rivimäärä - 1
@@ -286,17 +294,73 @@ class Board {
 
     /*
      * Laaditaan luettelo vapaista sarakkeista. Sarake on käytettävissä, mikäli päällimäinen rivi on tyhjä.
+     * - Sarakkeet luetellaan lähtien liikkeelle pelilaudan vasemmasta reunasta
      * - päällimmäisen rivin indeksinumero on 0
      */
     getOpenCols(){
 
         let cols = []
+
         for(let i = 0; i < this.#cols; i++){
             if(this.isValidLocation(i)) 
                 cols.push(i)
         }
 
         return cols
+    }
+
+    
+    /*
+     * Laaditaan luettelo vapaista sarakkeista. Sarake on käytettävissä, mikäli päällimäinen rivi on tyhjä.
+     * - Sarakkeet luetellaan lähtien liikkelle pelilaudan keskustasta
+     * - päällimmäisen rivin indeksinumero on 0
+     */
+    getOpenColsCenter() {
+
+        let cols = []
+        
+        let base = this.center
+        let laskuri = 0
+        let alaOk = true
+        let ylaOk = true
+
+        while(true){
+        
+            let coef = (laskuri % 2 === 0) ? 1: -1;
+            let move = laskuri * coef;
+        
+            base = base + move;
+        
+            if(base < 0)
+                alaOk = false
+            else if (base >= this.#cols)
+                ylaOk = false
+            else{
+
+                if(this.isValidLocation(base)) 
+                    cols.push(base)
+            }
+        
+            
+            if(alaOk === false && ylaOk === false)
+                break
+        
+            laskuri++
+        }
+
+        return cols
+    }
+
+    /*
+     * Muunnetaan solua vastaava indeksi rivi ja sarake muotoon
+     */
+    indexToRC(ind){
+
+        return {
+            r: Math.floor(ind/this.#cols),
+            c: ind%this.#cols
+        }
+
     }
 
     /*

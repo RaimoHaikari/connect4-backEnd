@@ -2,6 +2,7 @@ const AI = require("./classes/AI")
 const Board = require('./classes/Board')
 const Keyboard = require('./classes/Keyboard')
 const Settings = require('./classes/Settings')
+const Node = require('./classes/Node')
 
 const board = new Board(Settings.ROWS, Settings.COLS);
 const keyboard = new Keyboard();
@@ -62,7 +63,20 @@ while (gameOver === false){
 
         // let col = keyboard.getMove('PELAAJA 2: Valitse sarake?')
         //let col = getRandomCol()
-        let col = AI.pickBestMove(board, Settings.AI_PIECE)
+        //let col = AI.pickBestMove(board, Settings.AI_PIECE)
+        //let val = AI.minmax(board,1,Settings.AI_TURN)
+
+        let debugNode = new Node();
+        //let val = AI.MinValue(board, 4, debugNode)
+        let val = AI.ABMinValue(
+            board, 
+            2, 
+            Settings.AI_MAX_SCORE, 
+            Settings.PLAYER_MAX_SCORE, 
+            debugNode)
+        Node.TreeWalk(debugNode)
+
+        let col = val.column
 
         if(col == null)
             break
@@ -91,6 +105,3 @@ while (gameOver === false){
     turn = turn % 2;
 
 }
-
-
-
