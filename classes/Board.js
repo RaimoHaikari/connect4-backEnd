@@ -1,57 +1,35 @@
-const Settings = require('./Settings')
+const Settings = require('./Settings');
+
+const logger = require('../utils/logger');
+
 
 /*
+ * Pelilaudan tilanteen, ts. asetetut nappulat, tallettava luokka.
+ *
+ * Yksittäisen peliruudun sijainti voidaan määrittää:
+ * - sijaintipaikan rivi- ja sarakenumeroiden avulla
+ * - ruudun järjestysnumerona kaikkien ruutujen joukossa
+ *
+ * Luokka ei ota kantaa siihen kumpi pelaaja on vuorossa, vaan lautaa täytetään
+ * vastaanotettujen pyyntöjen mukaisesti.
+ *
  * @todo: Löytyy sekä isWinningMove että winningMove. 
  * - toiselle välitetään parametrinä viimeksi tehty siirto ja voittoriviä etsitään
  *   tähän kohtaan osuvista linjoista
  * - toinen tutkii koko pöydän.
  * - Voiko nämä esim. yhdistää?
  */
-
 class Board {
 
     #rows;
     #cols;
     #board;
 
-    debug(){
-
-        console.log("............. setting board ..................")
-        
-        this.#board[5][1] = Settings.AI_PIECE
-        this.#board[4][2] = Settings.AI_PIECE
-        this.#board[3][3] = Settings.AI_PIECE
-        this.#board[5][4] = Settings.AI_PIECE
-        this.#board[3][4] = Settings.AI_PIECE
-        //this.#board[2][3] = Settings.AI_PIECE
-        //this.#board[2][4] = Settings.AI_PIECE
-
-
-        this.#board[5][2] = Settings.PLAYER_PIECE
-        this.#board[5][3] = Settings.PLAYER_PIECE
-        this.#board[4][3] = Settings.PLAYER_PIECE
-        this.#board[4][4] = Settings.PLAYER_PIECE
-        this.#board[5][6] = Settings.PLAYER_PIECE
-        //this.#board[2][4] = Settings.PLAYER_PIECE
-        //this.#board[5][2] = Settings.PLAYER_PIECE
-        //this.#board[4][2] = Settings.PLAYER_PIECE
-        //this.#board[5][6] = Settings.PLAYER_PIECE
-        //this.#board[4][5] = Settings.PLAYER_PIECE
-        //this.#board[4][6] = Settings.PLAYER_PIECE
-        //this.#board[5][0] = Settings.PLAYER_PIECE
-
-    }
-
-
     constructor(rows, cols) {
         this.#rows = rows;
         this.#cols = cols;
 
-        this.#board = Array(rows)
-            .fill(0)
-            .map(x => Array(cols).fill(Settings.FREE))
-
-        //this.debug()
+        this.reset();   // Alustetaan halutun kokoinen tyhjä pöytä
     }
 
     /*
@@ -75,6 +53,31 @@ class Board {
         return this.#rows
     }
 
+    /*
+     * Asetetaan pelipöytä haluttuun tilaan
+     */
+    set state(pos) {
+
+        logger.info("............. setting board ..................");
+
+        this.reset();
+
+        let turn = pos.firstMove === Settings.PLAYER_TURN ? Settings.PLAYER_TURN : Settings.AI_TURN
+        let piece = turn === Settings.PLAYER_TURN ? Settings.PLAYER_PIECE : Settings.AI_PIECE
+        let moves = pos.moves;
+
+        for(let x = 0; x < moves.length; x++){
+
+            let ind = moves[x]
+            let rc = this.indexToRC(ind)
+        
+            this.#board[rc.r][rc.c] = piece
+
+            piece = -1 * piece
+        }
+
+    }
+
 
     /*
      * Tarkistetaan kulkeeko parametrien @row ja @col määrittämän solun kautta nousevan diagonaalin
@@ -96,7 +99,7 @@ class Board {
                 let nCol = col+(1*x)+deltaC
                 let nRow = row+(-1*x)-deltaC
 
-                //console.log(x, nRow, nCol)
+                //logger.info(x, nRow, nCol)
 
                 if(nCol<0 || nCol >= this.#cols || nRow <0 || nRow >= this.#rows)
                     windowOk = false
@@ -138,7 +141,7 @@ class Board {
                 let nCol = col+(-1*x)-deltaC
                 let nRow = row+(-1*x)-deltaC
 
-                //console.log(x, nRow, nCol)
+                //logger.info(x, nRow, nCol)
 
                 if(nCol<0 || nCol >= this.#cols || nRow <0 || nRow >= this.#rows)
                     windowOk = false
@@ -237,6 +240,7 @@ class Board {
     
     /*
      * Parametrillä w välitetään taulukko, joka sisältää pelipöydän osoitteita.
+     *
      * Mikäli kaikissa osoitteita vastaavissa soluissa on parametria piece vastaava
      * pelimerkki, niin palautetaan true. 
      * Jos jostain solusta löytyy jotain muuta, palautetaan false.
@@ -403,7 +407,7 @@ class Board {
      *   (ts. osoite: this.#board[0][col])
      */
     isValidLocation(col){
-        //console.log(this.#rows-1)
+        //logger.info(this.#rows-1)
         return this.#board[0][col] === Settings.FREE
     }
 
@@ -426,7 +430,7 @@ class Board {
             str = str +  rowStr + "\n"
         }
 
-        console.log(str)
+        logger.info(str)
 
     }
 
@@ -445,21 +449,36 @@ class Board {
         this.#board[row][col] = Settings.FREE
     }
 
+    /*
+     * Asetetaan pöytä tilaan, jossa kaikki ruudut ovat tyhjiä.
+     */
+    reset(){
+
+        this.#board = Array(this.#rows)
+            .fill(0)
+            .map(x => Array(this.#cols).fill(Settings.FREE));
+
+    }
+
+    /*
+     * Käydään läpi KAIKKI MAHDOLLISET VAIHTOEHDOT, jotka voisivat muodostaa voittosuoran.
+     * Eli tutkitaan alueelta löytyvät vaaka-, pysty- ja diagonaaliakselien suuntaiset 
+     * neljän peräkkäisen ruudun yhdistelmät.
+     */
     winningMove(piece) {
 
-        //console.log(".... in winningMove ...")
-
-        let window = Array(Settings.WINNING_LENGTH)
+        let window = Array(Settings.WINNING_LENGTH);
 
         // Check horizontal locations for win
         for(let r = 0; r < this.#rows; r++) {
+
             for(let c = 0; c <= this.#cols - Settings.WINNING_LENGTH; c++){
 
                 let success = true
 
                 for(let x = 0; x < Settings.WINNING_LENGTH; x++){
                     //window[x] = this.#board[r][c+x]
-                    window[x] = this.rcToIndex(r+x,c)
+                    window[x] = this.rcToIndex(r,c+x)
 
                     if(this.#board[r][c+x] !== piece)
                         success = false
@@ -501,6 +520,7 @@ class Board {
 
                 for(let x = 0; x < Settings.WINNING_LENGTH; x++){
 
+                    window[x] = this.rcToIndex(r+x,c+x)
                     //window[x] = this.#board[r+x][c+x]
 
                     if(this.#board[r+x][c+x] !== piece)
@@ -509,7 +529,7 @@ class Board {
                 }
 
                 if(success)
-                    return true
+                    return window
 
             }
         }
@@ -532,15 +552,13 @@ class Board {
                     
                 }
 
-                //console.log(window)
+                //logger.info(window)
 
                 if(success)
                     return window
 
             }
         }
-        
-
 
         return false
     }

@@ -1,6 +1,7 @@
-const Board = require("./Board")
-const Settings = require("./Settings")
-const AI = require('./AI')
+const Board = require("./Board");
+const Settings = require("./Settings");
+const AI = require('./AI');
+const Node = require('./Node');
 
 class Game {
 
@@ -30,7 +31,7 @@ class Game {
     }
 
     /*
-     * Asetetaan pelilaudan tila syöttämällä tehdyt siirrot aika järjestyksessä.
+     * Asetetaan pelilaudan tila syöttämällä tehdyt siirrot aikajärjestyksessä.
      * Uusimman siirron jälkeen tarkistetaan onko se voittosiirto.
      *
      * @param piece aloitussiirron tehnyt pelaaja
@@ -50,6 +51,8 @@ class Game {
             /*
              * Tarkistetaan onko kyseessä voittosiirto ainoastaan viimeisimmän siirron jälkeen.
              * (Edeltäviltä siirroilta tarkistus on tehty silloin kun ne oliva viimeisimpiä)
+             * 
+             * @todo: tätäkään ei tarvitsi ennen kuin voitto voisi edes teoriassa olla mahdollista
              */
             if(x === moves.length - 1){
                 let winningRow = this.#board.isWinningMove(rc, piece)
@@ -74,7 +77,7 @@ class Game {
             val = {
                 gameIsLive: true,
                 winningRow: null,
-                nextInTurn: piece,
+                nextInTurn: piece === Settings.PLAYER_PIECE ? Settings.PLAYER_TURN : Settings.AI_TURN,
                 moves: moves,
                 winner: null
             }
@@ -88,11 +91,24 @@ class Game {
     /*
      * - oletus, että pelipöydällä on vielä tilaa ainakin yhdelle pelimerkill
      */
-    makeAIMove(stateOfGame) {
+    makeAIMove(stateOfGame, searchDepth) {
 
-        let col = AI.pickBestMove(this.#board, Settings.AI_PIECE)
+        let debugNode = new Node();
+
+        let val = AI.ABMinValue(
+            this.#board, 
+            searchDepth, 
+            Settings.AI_MAX_SCORE, 
+            Settings.PLAYER_MAX_SCORE, 
+            debugNode
+        );
+
+        let col = val.column;
+
+        //let col = AI.pickBestMove(this.#board, Settings.AI_PIECE)
         
-        //console.log("AI", _col)
+        //Node.TreeWalk(debugNode);
+        //console.log("AI", col)
         //let col = this.getRandomCol();  // katso oletus!
         //console.log("Arvottiin: ", col)
         
@@ -118,7 +134,7 @@ class Game {
 
         let newStateOfGame = {
             ...stateOfGame,
-            nextInTurn: Settings.PLAYER_PIECE,
+            nextInTurn: Settings.PLAYER_TURN,
             moves: stateOfGame.moves.concat(rc)
         }
 
@@ -126,19 +142,24 @@ class Game {
     }
 
     /*
-     * tutkitaan pöydän tila pelaajan suorittaman siirron jäljiltä
+     * Tutkitaan pöydän tila pelaajan suorittaman siirron jäljiltä.
+     * Mikäli pelaajan järjestyksessä viimeisin siirto ei päättänyt peliä,
+     * lasketaan tietokoneen vastaussiirto.
      */
-    processMove(request) {
+    processMove(request, searchDepth) {
 
         let turn = request.firstMove === Settings.PLAYER_TURN ? Settings.PLAYER_TURN : Settings.AI_TURN
         let piece = turn === Settings.PLAYER_TURN ? Settings.PLAYER_PIECE : Settings.AI_PIECE
+
+        console.log("- turn", turn, ", piece", piece);
+
 
         let moves = request.moves
 
         let stateOfgame = this.goThrougMoves(piece, moves)
 
-        if(stateOfgame.gameIsLive && stateOfgame.nextInTurn === Settings.AI_PIECE)
-            return this.makeAIMove(stateOfgame)
+        if(stateOfgame.gameIsLive && stateOfgame.nextInTurn === Settings.AI_TURN)
+            return this.makeAIMove(stateOfgame, searchDepth)
 
         
         return stateOfgame

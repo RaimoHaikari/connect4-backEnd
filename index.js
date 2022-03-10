@@ -28,6 +28,21 @@ app.get('/', (req,res) => {
  * 
  */ 
 app.get('/api/c4/setup', (req, res) => {
+
+    console.log("in: /api/c4/setup")
+    
+    /*
+    const game = new Game()
+    let val = game.processMove(
+        {firstMove: 1,moves: []}, 
+        Settings.SEARCH_DEPTH
+    );
+    
+    console.log(val);
+    console.log("nextInTurn:", val.nextInTurn);
+    console.log("moves:", val.moves)
+    */
+
     res.json({
         rows: Settings.ROWS,
         cols: Settings.COLS,
@@ -46,10 +61,21 @@ app.get('/api/c4/setup', (req, res) => {
  * }
  */
 app.post('/api/c4/move', (request, response) => {
-    const move = request.body
+
+    const move = request.body;
+    const searchDepth = 2;
+
+    console.log("in: /api/c4/move (1)");
+    console.log(move)
 
     const game = new Game()
-    let val = game.processMove(move)
+    let val = game.processMove(move, searchDepth);
+    
+
+    console.log("in: /api/c4/move (2)");
+    console.log(val);
+    console.log(".........................")
+
 
     response.json(val)
 })

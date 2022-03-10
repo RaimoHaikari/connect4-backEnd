@@ -12,12 +12,14 @@ class Settings {
 
     static DRAW_SCORE = 0;
 
-    static WINNING_LENGTH = 4
+    static WINNING_LENGTH = 4;
 
-    static ROWS = 6
-    static COLS = 7
+    static ROWS = 6;
+    static COLS = 7;
 
-    static PIECE_IN_CENTER_COL = 3
+    static SEARCH_DEPTH = 2;
+
+    static PIECE_IN_CENTER_COL = 3;
 
 }
 

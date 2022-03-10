@@ -46,6 +46,8 @@ class AI {
      */
     static isTerminalNode(board){
 
+        //console.log(' .. isTerminalNode .. ');
+
         if(board.winningMove(Settings.PLAYER_PIECE))
             return {
                 terminalNode: true,
@@ -241,7 +243,6 @@ class AI {
 
     /*
      * Haetaan AI:n kannalta parasta siirtoa
-     * 
      * 
      */
     static ABMinValue(board, depth, alpha, beta, node) {

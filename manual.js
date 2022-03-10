@@ -1,12 +1,27 @@
-const AI = require("./classes/AI")
-const Board = require('./classes/Board')
-const Keyboard = require('./classes/Keyboard')
-const Settings = require('./classes/Settings')
-const Node = require('./classes/Node')
+const AI = require("./classes/AI");
+const Board = require('./classes/Board');
+const Keyboard = require('./classes/Keyboard');
+const Settings = require('./classes/Settings');
+const Node = require('./classes/Node');
+
+const logger = require('./utils/logger');
+
+const TestCases = require('./classes/TestCases'); 
+
+const sortInt = (a,b) => {
+    return a - b;
+}
 
 const board = new Board(Settings.ROWS, Settings.COLS);
+board.state = TestCases.END_STATES['desc_diagonal_slope'];
+
+let val = board.winningMove(Settings.AI_PIECE);
+console.log(val)
+//console.log(TestCases.END_STATES['desc_diagonal_slope'].winningIndicies.sort(sortInt))
+
+
 const keyboard = new Keyboard();
-let gameOver = false;
+let gameOver = true;
 
 /*
  * Arvotaan kumpi aloittaa
@@ -15,7 +30,7 @@ let gameOver = false;
 //let turn = [Settings.PLAYER_TURN, Settings.AI_TURN][rnd];
 let turn  = Settings.AI_TURN
 
-board.printBoard()
+board.printBoard();
 
 
 const getRandomCol = () => {
@@ -57,7 +72,8 @@ while (gameOver === false){
         let seconds = 1
 
         /* Pieni tauko ennen tietokoneen siirtoa */
-        console.log("PELAAJA 2: miettii.....")
+        logger.info("PELAAJA 2: miettii.....")
+
         var waitTill = new Date(new Date().getTime() + seconds * 250);
         while(waitTill > new Date()){}
 
@@ -74,7 +90,10 @@ while (gameOver === false){
             Settings.AI_MAX_SCORE, 
             Settings.PLAYER_MAX_SCORE, 
             debugNode)
-        Node.TreeWalk(debugNode)
+
+        logger.info(val)
+
+        //Node.TreeWalk(debugNode)
 
         let col = val.column
 
