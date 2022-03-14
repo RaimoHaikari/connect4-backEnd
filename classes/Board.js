@@ -403,6 +403,7 @@ class Board {
 
     /*
      * Tarkistetaan onko sarake käytettävissä.
+     *
      * - sarake on käytettävissä, mikäli päällimmäisen rivin solu on tyhjä
      *   (ts. osoite: this.#board[0][col])
      */

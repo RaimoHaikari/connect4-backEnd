@@ -95,6 +95,29 @@ describe('tasta se lahtee', () => {
     })
     */
 
+    describe('funktio: Board:getOpenCols', () => {
+
+        test('pöydällä ei ole enää tilaa', () => {
+
+            const board = new Board(Settings.ROWS, Settings.COLS);
+            let x = TestCases.END_STATES['draw']; 
+            board.state = x;
+    
+            let valA = board.getOpenCols();
+            expect(valA).toEqual([])
+        })
+
+        test('pöydällä on tilaa', () => {
+
+            const board = new Board(Settings.ROWS, Settings.COLS);
+            let x = TestCases.END_STATES['desc_diagonal_slope']; 
+            board.state = x;
+    
+            let valA = board.getOpenCols();
+            expect(valA.length).toEqual(Settings.COLS)
+        })
+    })
+
     describe('funktio: Board:isWinningMove', () => {
 
         test('pöydällä on vaakasuora pelaajan voittorivi', () => {
@@ -158,6 +181,22 @@ describe('tasta se lahtee', () => {
             // sensijaan pelaajan voittoriviä ei ole
             let valB = board.winningMove(Settings.PLAYER_PIECE)
             expect(valB).toEqual(false)
+
+        })
+
+        test('kaikki ruudut ovat käytössä, mutta kumpikaan pelaaja ei voittanut', () => {
+
+            const board = new Board(Settings.ROWS, Settings.COLS);
+            let x = TestCases.END_STATES['draw']; 
+            board.state = x;
+
+            // pelaajan voittoriviä ei ole
+            let valB = board.winningMove(Settings.PLAYER_PIECE)
+            expect(valB).toEqual(false)
+
+            // tietokoneen voittoriviä ei ole
+            let valA = board.winningMove(Settings.AI_PIECE)
+            expect(valA).toEqual(false)
 
         })
 

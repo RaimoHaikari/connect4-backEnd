@@ -112,9 +112,44 @@ END_STATES['desc_diagonal_slope'] = {
     winningIndicies: [14,22,30,38]
 }
 
+END_STATES['draw'] = {
+    description: 'Peli päättyi ratkaisemattomaan',
+    firstMove: Settings.PLAYER_TURN,
+    moves: [
+        35,28,21,14,7,0,
+        36,29,22,15,8,1,
+        37,30,23,16,9,2,
+        39,32,25,18,11,4,
+        40,
+        38,31,24,17,10,3,
+        33,26,19,12,5,
+        41,34,27,20,13,6
+    ],
+    isTerminalState: false,
+    winningPiece: undefined,
+    winningIndicies: undefined
+}
+
+const SCORING = [];
+
+SCORING['a'] = {
+    firstMove: Settings.AI_TURN,
+    moves: [],
+    playerTot: 69,
+    aiTot: 69
+};
+
+SCORING['b'] = {
+    firstMove: Settings.AI_TURN,
+    moves: [38,31,24,37,30,36],
+    playerTot: 69,
+    aiTot: 69
+};
+
 module.exports = {
     AI_IS_ONE_MOVE_AWAY_FROM_THE_WIN,
     GAME_IS_IN_END_STATE,
-    END_STATES
+    END_STATES,
+    SCORING
 }
 

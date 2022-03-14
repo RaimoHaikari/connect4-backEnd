@@ -4,20 +4,17 @@ const Keyboard = require('./classes/Keyboard');
 const Settings = require('./classes/Settings');
 const Node = require('./classes/Node');
 
+const deSmet = require('./classes/score_functions/deSmet');
+
 const logger = require('./utils/logger');
 
 const TestCases = require('./classes/TestCases'); 
 
-const sortInt = (a,b) => {
-    return a - b;
-}
 
 const board = new Board(Settings.ROWS, Settings.COLS);
-board.state = TestCases.END_STATES['desc_diagonal_slope'];
+board.state = TestCases.SCORING['b'];
+//deSmet.scorePosition(board, Settings.AI_PIECE);
 
-let val = board.winningMove(Settings.AI_PIECE);
-console.log(val)
-//console.log(TestCases.END_STATES['desc_diagonal_slope'].winningIndicies.sort(sortInt))
 
 
 const keyboard = new Keyboard();
