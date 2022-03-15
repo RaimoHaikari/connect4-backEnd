@@ -14,6 +14,7 @@ class deSmet {
         let score = {}
         score[Settings.AI_PIECE] = 0;
         score[Settings.PLAYER_PIECE] = 0;
+        score['terminal'] = false;
 
         for(let row = board.rows - 1; row >= (Settings.WINNING_LENGTH-1); row--){
 
@@ -23,6 +24,9 @@ class deSmet {
 
                 let ai_can_win = true;
                 let player_can_win = true;
+
+                let ai_count = 0;
+                let player_count = 0;
 
                 for(let delta = 0; delta < Settings.WINNING_LENGTH; delta++){
 
@@ -34,11 +38,13 @@ class deSmet {
                     switch (board.getMark(indY, indX)) {
 
                         case Settings.PLAYER_PIECE:
-                            ai_can_win = false
+                            ai_can_win = false;
+                            player_count++;
                             break;
 
                         case Settings.AI_PIECE:
-                            player_can_win = false
+                            player_can_win = false;
+                            ai_count++;
                             break;
 
                     }                    
@@ -46,6 +52,25 @@ class deSmet {
                     if(ai_can_win === false & player_can_win === false)
                         break;
 
+                }
+
+                /* Löytyikö voittoon oikeuttava suora */
+                if(ai_count === Settings.WINNING_LENGTH){
+    
+                    score[Settings.AI_PIECE] = Settings.DE_SMET_MAX_SCORE;
+                    score[Settings.PLAYER_PIECE] = 0;
+                    score['terminal'] = true;
+
+                    return score;
+                }
+
+                if(player_count === Settings.WINNING_LENGTH){
+
+                    score[Settings.PLAYER_PIECE] = Settings.DE_SMET_MAX_SCORE;
+                    score[Settings.AI_PIECE] = 0;
+                    score['terminal'] = true;
+
+                    return score
                 }
 
                 //console.log(arr);
@@ -75,6 +100,7 @@ class deSmet {
         let score = {}
         score[Settings.AI_PIECE] = 0;
         score[Settings.PLAYER_PIECE] = 0;
+        score['terminal'] = false;
 
         for(let row = 0; row <= (board.rows - Settings.WINNING_LENGTH); row++){
 
@@ -84,6 +110,9 @@ class deSmet {
 
                 let ai_can_win = true;
                 let player_can_win = true;
+
+                let ai_count = 0;
+                let player_count = 0;
 
                 // - tutkitaan mitä voittosuoran mittaisessa ikkunassa on...
                 for(let delta = 0; delta < Settings.WINNING_LENGTH; delta++){
@@ -96,11 +125,13 @@ class deSmet {
                     switch (board.getMark(indY, indX)) {
 
                         case Settings.PLAYER_PIECE:
-                            ai_can_win = false
+                            player_count++;
+                            ai_can_win = false;
                             break;
 
                         case Settings.AI_PIECE:
-                            player_can_win = false
+                            ai_count++;
+                            player_can_win = false;
                             break;
 
                     }
@@ -109,14 +140,35 @@ class deSmet {
                         break;
                 }
 
-                //console.log(arr);
 
+                /* Löytyikö voittoon oikeuttava suora */
+                if(ai_count === Settings.WINNING_LENGTH){
+                    
+                    score[Settings.AI_PIECE] = Settings.DE_SMET_MAX_SCORE;
+                    score[Settings.PLAYER_PIECE] = 0;
+                    score['terminal'] = true;
+
+                    return score;
+                }
+
+                if(player_count === Settings.WINNING_LENGTH){
+
+                    score[Settings.PLAYER_PIECE] = Settings.DE_SMET_MAX_SCORE;
+                    score[Settings.AI_PIECE] = 0;
+                    score['terminal'] = true;
+
+                    return score
+                }
+
+
+
+                /* Päivitetään tarvittaessa laskuria */
                 if(player_can_win) {
-                    score[Settings.PLAYER_PIECE] = score[Settings.PLAYER_PIECE] + 1
+                    score[Settings.PLAYER_PIECE] = score[Settings.PLAYER_PIECE] + 1;
                 }
 
                 if(ai_can_win) {
-                    score[Settings.AI_PIECE] = score[Settings.AI_PIECE] + 1
+                    score[Settings.AI_PIECE] = score[Settings.AI_PIECE] + 1;
                 }
 
             }
@@ -135,6 +187,7 @@ class deSmet {
         let score = {}
         score[Settings.PLAYER_PIECE] = 0;
         score[Settings.AI_PIECE] = 0;
+        score['terminal'] = false;
 
 
         // Score horizontal
@@ -147,6 +200,9 @@ class deSmet {
                 let ai_can_win = true;
                 let player_can_win = true;
 
+                let ai_count = 0;
+                let player_count = 0;
+
                 for(let deltaC = 0; deltaC < Settings.WINNING_LENGTH; deltaC++){
 
                     let indX = col+deltaC;
@@ -155,11 +211,13 @@ class deSmet {
                     switch (board.getMark(row, indX)) {
 
                         case Settings.PLAYER_PIECE:
-                            ai_can_win = false
+                            ai_can_win = false;
+                            player_count++;
                             break;
 
                         case Settings.AI_PIECE:
-                            player_can_win = false
+                            player_can_win = false;
+                            ai_count++;
                             break
                     
                     }
@@ -169,6 +227,27 @@ class deSmet {
                 
                 }
 
+                /* Löytyikö voittoon oikeuttava suora */
+                if(ai_count === Settings.WINNING_LENGTH){
+                    
+                    score[Settings.AI_PIECE] = Settings.DE_SMET_MAX_SCORE;
+                    score[Settings.PLAYER_PIECE] = 0;
+                    score['terminal'] = true;
+
+                    return score;
+                }
+
+                if(player_count === Settings.WINNING_LENGTH){
+
+                    score[Settings.PLAYER_PIECE] = Settings.DE_SMET_MAX_SCORE;
+                    score[Settings.AI_PIECE] = 0;
+                    score['terminal'] = true;
+
+                    return score
+                }
+
+
+                /* Päivitetään tarvittaessa laskuria */
                 if(player_can_win) {
                     score[Settings.PLAYER_PIECE] = score[Settings.PLAYER_PIECE] + 1
                 }
@@ -191,11 +270,48 @@ class deSmet {
         let score = {}
         score[Settings.AI_PIECE] = 0;
         score[Settings.PLAYER_PIECE] = 0;
-
+        
+        // - pystysuorat linjat
         let hScore = deSmet.scoreHorizontal(board);
+        if(hScore.terminal){
+
+            return piece === Settings.AI_PIECE
+                ? hScore[Settings.AI_PIECE] - hScore[Settings.PLAYER_PIECE]
+                : hScore[Settings.PLAYER_PIECE] - hScore[Settings.AI_PIECE];
+
+        }
+
+        // - vaakasuorat linjat
         let vScore = deSmet.scoreVertical(board);
+        if(vScore.terminal){
+
+            return piece === Settings.AI_PIECE
+                ? vScore[Settings.AI_PIECE] - vScore[Settings.PLAYER_PIECE]
+                : vScore[Settings.PLAYER_PIECE] - vScore[Settings.AI_PIECE];
+
+        }
+
+        // - laskevat diagonaalilinjat
         let dScore = deSmet.scoreDescending(board);
+        if(dScore.terminal){
+
+            return piece === Settings.AI_PIECE
+                ? dScore[Settings.AI_PIECE] - dScore[Settings.PLAYER_PIECE]
+                : dScore[Settings.PLAYER_PIECE] - dScore[Settings.AI_PIECE];
+
+        }
+
+        // - nousevat diagonaalilinjat
         let aScore = deSmet.scoreAscending(board);
+        if(aScore.terminal){
+
+            return piece === Settings.AI_PIECE
+                ? aScore[Settings.AI_PIECE] - aScore[Settings.PLAYER_PIECE]
+                : aScore[Settings.PLAYER_PIECE] - aScore[Settings.AI_PIECE];
+
+        }
+
+        /* Jos voittosuoraa ei löytynyt, lasketaan kokonaisasemat */
 
         score[Settings.AI_PIECE] = 
             hScore[Settings.AI_PIECE] +
@@ -209,36 +325,17 @@ class deSmet {
             dScore[Settings.PLAYER_PIECE] +
             aScore[Settings.PLAYER_PIECE];
 
+        
+        
+        console.log("h",hScore);
+        console.log("v",vScore);
+        console.log("a",aScore);
+        console.log("d", dScore);
+        
 
-
-        console.log(hScore);
-        console.log(vScore);
-        console.log(dScore);
-        console.log(aScore);
-
-        console.log(score);
-
-        /*
-        let cScore = 0
-
-
-
-        let hScore = AI.scoreHorizontal(board, piece)
-        score = score + hScore
-
-        let vScore = AI.scoreVertical(board, piece)
-        score = score + vScore
-
-        let dScore = AI.scoreDescending(board, piece)
-        score = score + dScore
-
-        let aScore = AI.scoreAscending(board, piece)
-        score = score + aScore
-
-        //console.log("[", cScore, hScore, vScore, dScore, aScore, "]")
-        */
-
-        return score
+        return piece === Settings.AI_PIECE
+            ? score[Settings.AI_PIECE] - score[Settings.PLAYER_PIECE]
+            : score[Settings.PLAYER_PIECE] - score[Settings.AI_PIECE]
     }
 
     /*
@@ -251,6 +348,7 @@ class deSmet {
         let score = {}
         score[Settings.AI_PIECE] = 0;
         score[Settings.PLAYER_PIECE] = 0;
+        score['terminal'] = false;
 
         // Score horizontal
         for(let indX = 0; indX < board.cols; indX++){
@@ -262,6 +360,9 @@ class deSmet {
                 let ai_can_win = true;
                 let player_can_win = true;
 
+                let ai_count = 0;
+                let player_count = 0;
+
                 // - muodostetaan voittosuoran mittainen ikkuna
                 for(let deltaR = 0; deltaR < Settings.WINNING_LENGTH; deltaR++){
 
@@ -272,11 +373,13 @@ class deSmet {
                     switch (board.getMark(indY, indX)) {
 
                         case Settings.PLAYER_PIECE:
-                            ai_can_win = false
+                            ai_can_win = false;
+                            player_count++;
                             break;
 
                         case Settings.AI_PIECE:
-                            player_can_win = false
+                            player_can_win = false;
+                            ai_count++;
                             break;
                     
                     }
@@ -287,6 +390,27 @@ class deSmet {
                     //arr.push(board.rcToIndex(indY, indX))
                 }
 
+                /* Löytyikö voittoon oikeuttava suora */
+                if(ai_count === Settings.WINNING_LENGTH){
+                    
+                    score[Settings.AI_PIECE] = Settings.DE_SMET_MAX_SCORE;
+                    score[Settings.PLAYER_PIECE] = 0;
+                    score['terminal'] = true;
+
+                    return score;
+                }
+
+                if(player_count === Settings.WINNING_LENGTH){
+
+                    score[Settings.PLAYER_PIECE] = Settings.DE_SMET_MAX_SCORE;
+                    score[Settings.AI_PIECE] = 0;
+                    score['terminal'] = true;
+
+                    return score
+                }
+
+
+                /* Päivitetään tarvittaessa laskuria */
                 if(player_can_win) {
                     score[Settings.PLAYER_PIECE] = score[Settings.PLAYER_PIECE] + 1
                 }

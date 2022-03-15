@@ -12,8 +12,10 @@ const TestCases = require('./classes/TestCases');
 
 
 const board = new Board(Settings.ROWS, Settings.COLS);
-board.state = TestCases.SCORING['b'];
-//deSmet.scorePosition(board, Settings.AI_PIECE);
+const x = TestCases.SCORING['a'];
+
+board.state = x;
+console.log(deSmet.scorePosition(board, x.lastPiece));
 
 
 

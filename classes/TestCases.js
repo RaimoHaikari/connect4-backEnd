@@ -133,17 +133,67 @@ END_STATES['draw'] = {
 const SCORING = [];
 
 SCORING['a'] = {
+    description: 'Tyhjä pöytä',
     firstMove: Settings.AI_TURN,
+    lastPiece: Settings.PLAYER_PIECE,
     moves: [],
     playerTot: 69,
-    aiTot: 69
+    aiTot: 69,
+    score: 0
 };
 
 SCORING['b'] = {
+    description: 'Laudalla on nappuloita, kumpikaan ei ole voittamassa',
     firstMove: Settings.AI_TURN,
+    lastPiece: Settings.PLAYER_PIECE,
     moves: [38,31,24,37,30,36],
-    playerTot: 69,
-    aiTot: 69
+    playerTot: 45,
+    aiTot: 53,
+    score: -8
+};
+
+/*
+ * description: 'Tietokone voitti (laskeva diagonaalinen suora'
+ */
+SCORING['c'] = {
+    ...END_STATES['desc_diagonal_slope'],
+    lastPiece: Settings.AI_PIECE,
+    playerTot: 0,
+    aiTot:0,
+    score:0
+};
+
+/*
+ * description: 'Tietokone voitti (nouseva diagonaalinen suora)'
+ */
+SCORING['d'] = {
+    ...END_STATES['asc_diagonal_slope'],
+    lastPiece: Settings.AI_PIECE,
+    playerTot: 0,
+    aiTot:0,
+    score:0
+};
+
+/*
+ * description: 'Pelaaja voitti (vaakasuora voittosuora)'
+ */
+SCORING['e'] = {
+    ...END_STATES['horizontal_line'],
+    lastPiece: Settings.PLAYER_PIECE,
+    playerTot: 0,
+    aiTot:0,
+    score:0
+};
+
+/*
+ * description: 'Tietokone voitti (pystysuora voittorivi)'
+ */
+SCORING['f'] = {
+    ...END_STATES['vertical_line'],
+    lastPiece: Settings.AI_PIECE,
+    playerTot: 0,
+    aiTot:Settings.AI_MAX_SCORE,
+    score:0
 };
 
 module.exports = {
