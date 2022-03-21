@@ -5,6 +5,7 @@ const Settings = require('./classes/Settings');
 const Node = require('./classes/Node');
 
 const deSmet = require('./classes/score_functions/deSmet');
+const galli = require('./classes/score_functions/galli')
 
 const logger = require('./utils/logger');
 
@@ -12,10 +13,25 @@ const TestCases = require('./classes/TestCases');
 
 
 const board = new Board(Settings.ROWS, Settings.COLS);
-const x = TestCases.SCORING['a'];
 
+/*
+for (var key in TestCases.SCORING) {
+    console.log(TestCases.SCORING[key].description);
+    const x = TestCases.SCORING[key];
+    board.state = x;
+
+    let a = AI.scorePosition(board, x.lastPiece);
+    let b = galli.scorePosition(board, x.lastPiece);
+
+    console.log(a, b, (a-b))
+}
+*/
+
+
+const x = TestCases.SCORING['g'];
 board.state = x;
-console.log(deSmet.scorePosition(board, x.lastPiece));
+
+console.log(galli.scorePosition(board, x.lastPiece));
 
 
 

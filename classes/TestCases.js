@@ -196,6 +196,18 @@ SCORING['f'] = {
     score:0
 };
 
+/*
+ * description: 'Pelaaja voitti (vaakasuora voittosuora)'
+ */
+SCORING['g'] = {
+    ...END_STATES['horizontal_line'],
+    moves: [37,30,38,31,39,32,23,36,16,35,40,28,24],
+    lastPiece: Settings.PLAYER_PIECE,
+    playerTot: 0,
+    aiTot:0,
+    score:0
+};
+
 module.exports = {
     AI_IS_ONE_MOVE_AWAY_FROM_THE_WIN,
     GAME_IS_IN_END_STATE,

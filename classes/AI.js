@@ -638,7 +638,7 @@ class AI {
 
             for(let col = 0; col < Settings.WINNING_LENGTH; col++){
 
-                //let arr = []
+                let arr = []
 
                 let isPiece = 0
                 let isFree = 0
@@ -647,7 +647,7 @@ class AI {
                 for(let deltaC = 0; deltaC < Settings.WINNING_LENGTH; deltaC++){
 
                     let indX = col+deltaC
-
+                    arr.push(board.rcToIndex(row, indX));
                     
                     switch (board.getMark(row, indX)) {
 
@@ -665,7 +665,10 @@ class AI {
                 
                 }
 
+                
+
                 score = score + AI.getWindowScore(isPiece, isFree, isOpponent)
+                //console.log(arr,':',isPiece, isFree, isOpponent,"[",AI.getWindowScore(isPiece, isFree, isOpponent));
 
             }
 
