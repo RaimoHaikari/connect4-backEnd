@@ -198,10 +198,11 @@ SCORING['f'] = {
 
 /*
  * description: 'Pelaaja voitti (vaakasuora voittosuora)'
+moves: [37,30,38,31,39,32,23,36,16,35,40,28,24],
  */
 SCORING['g'] = {
     ...END_STATES['horizontal_line'],
-    moves: [37,30,38,31,39,32,23,36,16,35,40,28,24],
+    moves: [],
     lastPiece: Settings.PLAYER_PIECE,
     playerTot: 0,
     aiTot:0,

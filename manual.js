@@ -5,13 +5,12 @@ const Settings = require('./classes/Settings');
 const Node = require('./classes/Node');
 
 const deSmet = require('./classes/score_functions/deSmet');
-const galli = require('./classes/score_functions/galli')
+const galli = require('./classes/score_functions/galli');
 
 const logger = require('./utils/logger');
 
+
 const TestCases = require('./classes/TestCases'); 
-
-
 const board = new Board(Settings.ROWS, Settings.COLS);
 
 /*
@@ -31,7 +30,18 @@ for (var key in TestCases.SCORING) {
 const x = TestCases.SCORING['g'];
 board.state = x;
 
-console.log(galli.scorePosition(board, x.lastPiece));
+
+let debugNode = new Node();
+let val = AI.ABMinValue(
+    board, 
+    1, 
+    Settings.AI_MAX_SCORE, 
+    Settings.PLAYER_MAX_SCORE, 
+    debugNode)
+
+logger.info(val)
+
+//Node.TreeWalk(debugNode);
 
 
 
@@ -101,7 +111,7 @@ while (gameOver === false){
         //let val = AI.MinValue(board, 4, debugNode)
         let val = AI.ABMinValue(
             board, 
-            2, 
+            1, 
             Settings.AI_MAX_SCORE, 
             Settings.PLAYER_MAX_SCORE, 
             debugNode)

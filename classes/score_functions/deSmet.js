@@ -3,6 +3,9 @@ const Settings = require('../Settings')
 /*
  * How should I design a good evaluation function for Connect 4?
  * - https://stackoverflow.com/questions/10985000/how-should-i-design-a-good-evaluation-function-for-connect-4
+ * 
+ * @todo: Mahdollisen voittosuoran etsiminen pitäisi voida poistaa, sillä ennen pelilaudan arviointia
+ *        ollaan jo testattu voittaako kumpikaan pelaajista [...AI.isTerminalNode(board)]
  */
 class deSmet {
 
@@ -227,7 +230,9 @@ class deSmet {
                 
                 }
 
-                /* Löytyikö voittoon oikeuttava suora */
+                /* 
+                 * Löytyikö voittoon oikeuttava suora 
+                 */
                 if(ai_count === Settings.WINNING_LENGTH){
                     
                     score[Settings.AI_PIECE] = Settings.DE_SMET_MAX_SCORE;
@@ -265,6 +270,9 @@ class deSmet {
     }
 
 
+    /*
+     *  
+     */
     static scorePosition(board, piece) {
 
         let score = {}
@@ -327,10 +335,15 @@ class deSmet {
 
         
         
-        console.log("h",hScore);
-        console.log("v",vScore);
-        console.log("a",aScore);
-        console.log("d", dScore);
+        //console.log("h",hScore);
+        //console.log("v",vScore);
+        //console.log("a",aScore);
+        //console.log("d", dScore);
+        console.log(
+            score,
+            score[Settings.AI_PIECE] - score[Settings.PLAYER_PIECE]
+        )
+        
         
 
         return piece === Settings.AI_PIECE
