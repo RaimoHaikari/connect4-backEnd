@@ -33,7 +33,7 @@ class Board {
     }
 
     /*
-     * Keskimmäisen sarakkeen indeksinumero
+     * Palauttaa keskimmäisen sarakkeen indeksinumeron
      */
     get center() {
         return Math.floor(this.#cols/2)
@@ -54,7 +54,7 @@ class Board {
     }
 
     /*
-     * Asetetaan pelipöytä haluttuun tilaan
+     * Asetetaan pelipöytä haluttuun tilaan.
      */
     set state(pos) {
 

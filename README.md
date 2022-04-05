@@ -146,3 +146,101 @@ Funktio palauttaa objektin, jonka:
 ![isTerminalNode](/assets/isTerminalNode.svg "isTerminalNode funktio")
 
 
+#### Board
+
+**Muuttujat**
+
+*rows*  
+*cols*  
+*board*  
+
+**Getters**
+
+*center*  
+*cols*  
+*rows*  
+
+**Setters**
+
+*state(pos)*  
+
+**Funktiot**
+
+*checkAscending(row, col, piece)*  
+*checkDescending(row, col, piece)*  
+*checkHorizontal(row, col, piece)*  
+*checkVertical(r, c, piece)*  
+*checkWindow(w, piece)*  
+*dropThePiece(row, col, piece)*  
+*getNextOpenRow(col)*  
+*getMark(row, col)*  
+*getOpenCols()*  
+*getOpenColsCenter()*  
+*indexToRC(ind)*  
+*isWinningMove(pos, piece)*  
+*isValidLocation(col)*  
+*printBoard()*  
+*rcToIndex(r,c)*  
+*removeThePiece(row, col)*  
+*reset()*  
+*winningMove(piece)*  
+
+
+**Yleiskuvaus**
+
+Pelilaudan ulottuvuudet ja pelitilanteen tallentava luokka. 
+
+Yksittäisen peliruudun sijainti voidaan määrittää:
+
+- sijaintipaikan rivi- ja sarakenumeroiden avulla
+- ruudun järjestysnumerona kaikkien ruutujen joukossa.
+
+Luokka ei ota kantaa siihen kumpi pelaaja on vuorossa, vaan lautaa täytetään vastaanotettujen pyyntöjen mukaisesti. Luokka toteuttaa myös funktion, jonka avulla voidaan selvittää sisältääkö pelilauta voittoon oikeuttavan suoran.
+
+##### rows
+
+Pelilaudan rivien lukumäärä. Neljän suorassa rivejä on käytössä 6.
+
+##### cols
+
+Pelilaudan sarakkeiden lukumäärä. Neljän suorassa sarakkeita on käytössä 7.
+
+##### board
+
+Pelilaudan muodostava kaksiulotteinen taulukko. Taulukossa on rivejä rows-muuttujalla asetettava määrä ja sarakkeita cols-muuttujalla asetettava määrä.
+
+##### center
+
+Palauttaa pelilaudan keskimmäisen sarakkeen indeksinumeron.
+
+##### state(pos)
+
+Asetetaan pelilauta haluttuun tilaan, ts. yhdellä kertaan voidaan syöttää useita pelimerkkejä.
+
+##### checkAscending(row, col, piece)
+
+Tarkistetaan kulkeeko parametrien row ja col määrittämän solun kautta nousevan diagonaalin suuntainen voittolinja.
+
+Mikäli voittolinja löytyy, palautetaan linjan muodostavien solujen indeksit.Mikäli ei, palautetaan false.
+
+![Diagonaaliakselin suuntaisia voittosuoria](/assets/ascLines.svg "Kolme vaihtoehtoista diagonaaliakselin suuntaista voittosuoraa.")
+
+Ruudun 17 kautta voi kulkea kolme erilaista nousevan diagonaaliakselin suuntaista voittosuoraa.
+
+##### checkDescending(row, col, piece)
+
+Tarkistetaan kulkeeko parametrien row ja col määrittämän solun kautta laskevan diagonaalin suuntainen voittolinja.
+
+Mikäli voittolinja löytyy, palautetaan linjan muodostavien solujen indeksit. Mikäli ei, palautetaan false.
+
+##### checkHorizontal(row, col, piece)
+
+Tarkistetaan kulkeeko parametrien @row ja @col määrittämän solun kautta vaakasuora voittolinja.
+
+Mikäli voittolinja löytyy, palautetaan linjan muodostavien solujen indeksit. Mikäli ei, palautetaan false.
+
+##### checkVertical(r, c, piece)
+
+Tarkistetaan kulkeeko parametrien @row ja @col määrittämän solun kautta pystysuora voittolinja.
+
+Mikäli voittolinja löytyy, palautetaan linjan muodostavien solujen indeksit. Mikäli ei, palautetaan false.
