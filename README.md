@@ -25,9 +25,9 @@ Tietokoneen siirron määrittävä luokka. Pohjana toimii minimax-algoritmi.
 
 Lähtökohtana on ajatus, että kumpikin pelaaja haluaa voittaa ja pyrkii tekemään kannaltaan mahdollisimman hyviä siirtoja. Siirron hyvyyttä arvioidaan pisteyttämällä pelilaudalla siirron jälkeen vallitseva tilanne.
 
-Pisteytyksen perusperiaate on, että mikäli asema on pelaajan kannalta edullinen, arvosana on positiivinen luku. Mikäli puolestaan tietokone on voitolla, arvosana on negatiivinen luku. Sitä suurempi/pienempi luku on, mitä selkeämpi asema on. Kuinka luku lasketaan, määritellään evaluointifunktiolla.
+<a name="pisteytys">Pisteytyksen perusperiaate on, että mikäli asema on pelaajan kannalta edullinen, arvosana on positiivinen luku. Mikäli puolestaan tietokone on voitolla, arvosana on negatiivinen luku.</a> Sitä suurempi/pienempi luku on, mitä selkeämpi asema on. Kuinka luku lasketaan, määritellään evaluointifunktiolla.
 
-#### evaluationFunction
+##### evaluationFunction
 
 Pelilaudan tilan arviointiin käytettävä funktio.
 
@@ -55,7 +55,7 @@ Molemmat funktiot palauttavat objektin, joka sisältää:
 - valitun siirron, eli parhaan sarakkeen järjestysnumeron
 - em. siirrolle lasketun arvon.
 
-Suorituksen kulku
+**Suorituksen kulku**
 
 Sovellus hakee tietokoneen kannalta parasta siirtoa, joten liikkeelle lähdetään kutsumalla ABMinValue-funktiota.
 
@@ -64,7 +64,7 @@ Funktion toiminta jakaantuu kahteen osaa, esimmäisessä vaiheessa selvitetään
 - pelin päättymistä jommankumman pelaajan voittoon tai tasapeliin
 - valitun hakusyvyyden saavuttamista.
 
-Jos jompikumpi vaihtoehdoista toteutuu, palautetaan asianmukainen arvo. Päinvastaisessa tilanteessa jatketaan funktion jälkimmäiseen osaan, jonka tarkoitus on käydä läpi kaikki käytettävissä olevat siirtovaihtoehdot ja valita näistä paras.
+Jos jompikumpi vaihtoehdoista toteutuu, palautetaan [asianmukainen arvo](#pisteytys). Päinvastaisessa tilanteessa jatketaan funktion jälkimmäiseen osaan, jonka tarkoitus on käydä läpi kaikki käytettävissä olevat siirtovaihtoehdot ja valita näistä paras.
 
 Tässä jälkimmäisessä vaiheessa alkuperäisestä hakusyvyydestä vähennetään yksi ja tätä uutta arvoa käytetään tehtävien funktiokutsujen yhteydessä hakusyvyyden kertovan parametrin arvona. Näin varmistetaan, että hakusyvyys jossain vaiheessa saavutetaan, kun rekursion edetessä ABMinValue ja ABMaxValue kutsuvat toisiaan vuorotellen.
 
