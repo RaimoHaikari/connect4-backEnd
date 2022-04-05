@@ -29,8 +29,6 @@ class AI {
      */
     static isTerminalNode(board){
 
-        //console.log(' .. isTerminalNode .. ');
-
         if(board.winningMove(Settings.PLAYER_PIECE))
             return {
                 terminalNode: true,
@@ -68,9 +66,6 @@ class AI {
     static GoalTest(board, depth, piece) {
 
         let gameState = AI.isTerminalNode(board);
-
-        //console.log(`...........GoalTest [${piece}]............`)
-
         
         // Vaihtoehto 1: Päättyikö peli voittoon tai tasapeliin?
         if(gameState.terminalNode){
@@ -113,14 +108,11 @@ class AI {
                 piece
             )
 
-            //console.log(`....GoalTest [ piece: ${piece}|coef: ${coef}|s:[${s}|val:${coef*s}]............`)
-
             /*
             console.log("DEPTH == 0")
             board.printBoard()
             console.log(`.........${s} * ${coef} = ${coef * s}...........`)
             */
-
 
             return {
                 score: coef * s,
