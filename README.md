@@ -25,7 +25,7 @@ Tietokoneen siirron määrittävä luokka. Pohjana toimii minimax-algoritmi.
 
 Lähtökohtana on ajatus, että kumpikin pelaaja haluaa voittaa ja pyrkii tekemään kannaltaan mahdollisimman hyviä siirtoja. Siirron hyvyyttä arvioidaan pisteyttämällä pelilaudalla siirron jälkeen vallitseva tilanne.
 
-<a name="pisteytys">Pisteytyksen perusperiaate on, että mikäli asema on pelaajan kannalta edullinen, arvosana on positiivinen luku. Mikäli puolestaan tietokone on voitolla, arvosana on negatiivinen luku.</a> Sitä suurempi/pienempi luku on, mitä selkeämpi asema on. Kuinka luku lasketaan, määritellään evaluointifunktiolla.
+<a name="pisteytys">***Pisteytyksen perusperiaate on, että mikäli asema on pelaajan kannalta edullinen, arvosana on positiivinen luku. Mikäli puolestaan tietokone on voitolla, arvosana on negatiivinen luku.***</a> Sitä suurempi/pienempi luku on, mitä selkeämpi asema on. Kuinka luku lasketaan, määritellään evaluointifunktiolla.
 
 ##### evaluationFunction
 
@@ -85,7 +85,7 @@ Kuinka pitkälle tulevaisuuteen kurkistetaan, ts. kuinka monta siirtovuoroa etee
 
 Matkalla kohti valittua hakusyvyyttä funktiot ABMaxValue ja ABMinValue kutsuvat toisiaan vuorotellen. Kumpikin algoritmi valitsee tarjolla olevista vaihtoehdoista kannaltaan parhaan ja palauttaa tiedon valinnastaan kutsuhierarkiassa ylempänä olevalle tasolle, kunnes juuressa tehty valinta palautetaan tietokoneen siirtona.
 
-![MinMax -algoritmin ajo, kun hakusyvyytenä on 1](/assets/minMax_2022_05_01B.png "MinMax -algoritmin suoritus")
+![MinMax -algoritmin ajo, kun hakusyvyytenä on 1](/assets/miniMax.svg "MinMax -algoritmin suoritus")
 
 Kuva esittää minimax algoritmin kulun, kun hakusyvyytenä on 1, jolloin maksimaalista arvoa hakeva ABMaxValue-funktio ei esitä takaisinkutsua ABMinValue-funktiolle.
 
