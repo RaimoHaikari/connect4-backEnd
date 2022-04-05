@@ -7,9 +7,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="297mm"
-   height="210mm"
-   viewBox="0 0 297 210"
+   width="202.53918mm"
+   height="125.06873mm"
+   viewBox="0 0 202.53918 125.06873"
    version="1.1"
    id="svg8"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
@@ -82,8 +82,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.77147868"
-     inkscape:cx="263.77916"
-     inkscape:cy="396.85039"
+     inkscape:cx="222.27788"
+     inkscape:cy="385.99708"
      inkscape:document-units="mm"
      inkscape:current-layer="layer6"
      inkscape:document-rotation="0"
@@ -110,7 +110,11 @@
      inkscape:snap-intersection-paths="true"
      inkscape:snap-object-midpoints="true"
      inkscape:snap-center="true"
-     inkscape:snap-smooth-nodes="true">
+     inkscape:snap-smooth-nodes="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
     <inkscape:grid
        type="xygrid"
        id="grid904"
@@ -119,7 +123,9 @@
        empspacing="4"
        visible="true"
        dotted="false"
-       snapvisiblegridlinesonly="true" />
+       snapvisiblegridlinesonly="true"
+       originx="-10.980547"
+       originy="-2.8716047" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -138,7 +144,8 @@
      inkscape:groupmode="layer"
      id="layer1"
      style="display:none"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     transform="translate(-10.980547,-2.8716047)">
     <rect
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#3b3176;fill-opacity:1;stroke:#000000;stroke-width:0.365001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
        id="rect864"
@@ -255,7 +262,8 @@
      id="layer2"
      inkscape:label="grid"
      sodipodi:insensitive="true"
-     style="display:none">
+     style="display:none"
+     transform="translate(-10.980547,-2.8716047)">
     <rect
        style="fill:none;stroke:#000000;stroke-width:0.365001;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
        id="rect859"
@@ -283,7 +291,8 @@
      id="layer3"
      inkscape:label="ulkoasumaaritykset"
      style="display:none"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     transform="translate(-10.980547,-2.8716047)">
     <path
        id="path893"
        style="fill:#e1e0e4;fill-opacity:0;stroke:#000000;stroke-width:0.365001;stop-color:#000000"
@@ -371,7 +380,8 @@
      id="layer4"
      inkscape:label="SEQ_processMove"
      style="display:none"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     transform="translate(-10.980547,-2.8716047)">
     <g
        id="g7263"
        transform="translate(-9.3875568,-1.2927746)">
@@ -702,7 +712,8 @@
      id="layer5"
      inkscape:label="MinMax"
      style="display:none"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     transform="translate(-10.980547,-2.8716047)">
     <rect
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#f9f9f9;fill-opacity:1;stroke:#808080;stroke-width:0.565;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.565, 1.13;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
        id="rect3183"
@@ -1142,7 +1153,8 @@
      inkscape:groupmode="layer"
      id="layer6"
      inkscape:label="GoalTest.js"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(-10.980547,-2.8716047)">
     <rect
        style="font-variation-settings:normal;vector-effect:none;fill:#f9f9f9;fill-opacity:1;stroke:#808080;stroke-width:0.565;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.565, 1.13;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
        id="rect2894-2"
@@ -1463,7 +1475,8 @@
      id="layer9"
      inkscape:label="score_Galli"
      style="display:none"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     transform="translate(-10.980547,-2.8716047)">
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.77303px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0.00795504px;word-spacing:0px;display:inline;stroke-width:0.264583"
@@ -1753,7 +1766,8 @@
      id="layer8"
      inkscape:label="isTerminalNode"
      style="display:none"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     transform="translate(-10.980547,-2.8716047)">
     <g
        id="g3245">
       <rect
@@ -2182,7 +2196,8 @@
      id="layer7"
      inkscape:label="winningMove"
      style="display:none"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     transform="translate(-10.980547,-2.8716047)">
     <rect
        style="fill:none;fill-opacity:1;stroke:#808080;stroke-width:0.165;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
        id="rect2622"
@@ -5997,7 +6012,8 @@
      id="g3012"
      inkscape:label="deSmet_esimerkki_a"
      style="display:none"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     transform="translate(-10.980547,-2.8716047)">
     <rect
        style="vector-effect:none;fill:#f9f9f9;fill-opacity:1;stroke:#808080;stroke-width:0.565;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.565, 1.13;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
        id="rect6170"
@@ -7605,7 +7621,8 @@
      id="g3529"
      inkscape:label="minMax_esimerkki_a"
      style="display:none"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     transform="translate(-10.980547,-2.8716047)">
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke:#808080;stroke-width:0.165;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
        id="rect3002"

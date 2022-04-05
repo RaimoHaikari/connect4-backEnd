@@ -89,3 +89,58 @@ Matkalla kohti valittua hakusyvyyttä funktiot ABMaxValue ja ABMinValue kutsuvat
 
 Kuva esittää minimax algoritmin kulun, kun hakusyvyytenä on 1, jolloin maksimaalista arvoa hakeva ABMaxValue-funktio ei esitä takaisinkutsua ABMinValue-funktiolle.
 
+##### GoalTest
+
+Tutkitaan ollaanko saavutettu lopputila. Lopputila tarkoittaa sitä, että jompikumpi pelaaja voittaisi pelin tai on saavutettu rekursion maksimisyvyys.
+
+![GoalTest](/assets/goalTest.svg "GoalTest funktio")
+
+Funktio palauttaa objektin, jonka score-kentän arvo on jokin seuraavista:
+
+|score |Tarkoittaa|
+|:--- | :--- |
+|pelaajan maksimipisteet| Pelaaja voittaa. Suuri luku, jonka arvo on määritelty Settings -luokassa.|
+|tietokoneen maksimipisteet|Tietokone voittaa. Mahdollisimman pieni luku, jonka arvo on määritelty Settings-luokassa.|
+|tasapeli|Peli päättyy ratkaisemattomaan. Neutraali luku, jonka arvon määritelty Settings-luokassa.|
+|arvio pelilaudan tilasta|Evaluointifunktion määrittämä pistearvo pelilaudalla vallitsevasta tilanteesta. Vaihteluväli: suurempi kuin tietokoneen voitto ja pienempi kuin pelaajan voitto.|
+|undefined|Peli ei ole päättymässä, eikä olla saavutettu hakusyvyyttä.|
+
+#####  isTerminalNode
+
+Peli päättyy mikäli:
+
+- jompikumpi pelaajista voittaa
+- jäljellä ei ole enää vapaita ruutuja
+
+Pelilaudan tilan tallentavan luokan (Board) winningMove- ja getOpenCols funktioiden avulla selvitetään onko jokin kolmesta vaihtoehdosta toteutunut.
+
+
+Funktio palauttaa objektin, jonka:
+
+<table>
+    <thead>
+        <tr>
+            <th>Kenttä</th>
+            <th>Arvo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>terminalNode</td>
+            <td>true|false</td>
+        <tr>
+        <tr>
+            <td>winningPiece</td>
+            <td>
+                <ul>
+                    <li>PLAYER_PIECE. Settings-luokassa määritelty pelaajan pelimerkin kertova arvo.</li>
+                    <li>AI_PIECE. Settings-luokassa määritelty tietoneen pelimerkin kertova arvo.</li>
+                    <li>undefined</li>
+                </ul>
+            </td>
+  </tbody>
+</table>
+
+![isTerminalNode](/assets/isTerminalNode.svg "isTerminalNode funktio")
+
+
