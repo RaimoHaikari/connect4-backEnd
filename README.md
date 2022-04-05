@@ -10,14 +10,14 @@ Neljän suora pelin node.js:llä toteutettu backend toiminnallisuus.
 
 **Muuttujat**
 
-static evaluationFunction
+*static evaluationFunction*
 
 **Funktiot**
 
-static isTerminalNode(board)  
-static GoalTest(board, depth, piece)  
-static ABMaxValue(board, depth, alpha, beta, node)  
-static ABMinValue(board, depth, alpha, beta, node)  
+*static isTerminalNode(board)*  
+*static GoalTest(board, depth, piece)*  
+*static ABMaxValue(board, depth, alpha, beta, node)*  
+*static ABMinValue(board, depth, alpha, beta, node)*  
 
 **Yleiskuvaus**
 
@@ -32,6 +32,8 @@ Lähtökohtana on ajatus, että kumpikin pelaaja haluaa voittaa ja pyrkii tekem�
 Pelilaudan tilan arviointiin käytettävä funktio.
 
 Luokka AI tarjoaa yleisluonteisen toiminnallisuuden, jonka avulla voidaan toteuttaa eri pelejä. Pelikohtainen Board-luokan ilmentymä määrittelee kunkin pelilaudan ominaisuudet ja evaluointifunktio pelitilanteen arvioinnin. Evaluointifunktio implementoidaan luokalla, joka toteuttaa rajapinnan scorePosition(board, piece).
+
+Käytössä olevaan evaluointifunktioon päästään käsiksi muuttujan evaluationFunction kautta.
 
 ##### minmax
 
@@ -85,7 +87,7 @@ Kuinka pitkälle tulevaisuuteen kurkistetaan, ts. kuinka monta siirtovuoroa etee
 
 Matkalla kohti valittua hakusyvyyttä funktiot ABMaxValue ja ABMinValue kutsuvat toisiaan vuorotellen. Kumpikin algoritmi valitsee tarjolla olevista vaihtoehdoista kannaltaan parhaan ja palauttaa tiedon valinnastaan kutsuhierarkiassa ylempänä olevalle tasolle, kunnes juuressa tehty valinta palautetaan tietokoneen siirtona.
 
-![MinMax -algoritmin ajo, kun hakusyvyytenä on 1](/assets/miniMax.svg "MinMax -algoritmin suoritus")
+![MinMax -algoritmin ajo, kun hakusyvyytenä on 1](/assets/miniMax_01.svg "MinMax -algoritmin suoritus")
 
 Kuva esittää minimax algoritmin kulun, kun hakusyvyytenä on 1, jolloin maksimaalista arvoa hakeva ABMaxValue-funktio ei esitä takaisinkutsua ABMinValue-funktiolle.
 
